@@ -6,6 +6,8 @@ import SignupPage from "./components/SignupPage";
 import HotelsPage from "./components/HotelsPage";
 import RoomsPage from "./components/RoomsPage";
 
+import "./styles.css"
+
 function App() {
   return (
     <Router>

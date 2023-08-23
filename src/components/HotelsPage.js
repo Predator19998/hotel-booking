@@ -2,88 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 //import './HotelsPage.css';
 
-const hotelsData = [
-  {
-    id: 1,
-    name: "Luxury Paradise Hotel",
-    image: "hotel1.jpg",
-    rating: 4.8,
-    location: "New York",
-    pricePerNight: 250
-  },
-  {
-    id: 2,
-    name: "Sunny Beach Resort",
-    image: "hotel2.jpg",
-    rating: 4.6,
-    location: "Los Angeles",
-    pricePerNight: 180
-  },
-  {
-    id: 3,
-    name: "Mountain Retreat Inn",
-    image: "hotel3.jpg",
-    rating: 4.4,
-    location: "Aspen",
-    pricePerNight: 220
-  },
-  {
-    id: 4,
-    name: "Urban Oasis Suites",
-    image: "hotel4.jpg",
-    rating: 4.7,
-    location: "Chicago",
-    pricePerNight: 200
-  },
-  {
-    id: 5,
-    name: "Seaside Escape Resort",
-    image: "hotel5.jpg",
-    rating: 4.5,
-    location: "Miami",
-    pricePerNight: 300
-  },
-  {
-    id: 6,
-    name: "Rustic Cabin Retreat",
-    image: "hotel6.jpg",
-    rating: 4.2,
-    location: "Lake Tahoe",
-    pricePerNight: 150
-  },
-  {
-    id: 7,
-    name: "Countryside Manor",
-    image: "hotel7.jpg",
-    rating: 4.3,
-    location: "Napa Valley",
-    pricePerNight: 180
-  },
-  {
-    id: 8,
-    name: "Historic Downtown Hotel",
-    image: "hotel8.jpg",
-    rating: 4.9,
-    location: "Charleston",
-    pricePerNight: 230
-  },
-  {
-    id: 9,
-    name: "Cozy Mountain Lodge",
-    image: "hotel9.jpg",
-    rating: 4.6,
-    location: "Denver",
-    pricePerNight: 170
-  },
-  {
-    id: 10,
-    name: "Modern City Suites",
-    image: "hotel10.jpg",
-    rating: 4.7,
-    location: "San Francisco",
-    pricePerNight: 250
-  }
-];
+var hotelsdata = [];
 
 const HotelsPage = () => {
   const [location, setLocation] = useState("");
@@ -94,22 +13,31 @@ const HotelsPage = () => {
 
   const navigate = useNavigate();
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (!startDate || !endDate) {
       setSearchError("Please enter both start and end dates.");
       return;
     }
 
     setSearchError("");
+
+    try {
+      const response = await fetch('http://localhost:5000/hotels');
+      hotelsdata = await response.json();
+    } catch (error) {
+      console.error('Error fetching hotels:', error);
+    }
+
     // Simulating hotel search based on location
-    const matchingHotels = hotelsData.filter(
+    const matchingHotels = hotelsdata.filter(
       (hotel) => hotel.location.toLowerCase() === location.toLowerCase()
     );
     setHotels(matchingHotels);
   };
 
+
   const handleRooms = (id) => {
-    navigate("/rooms/${id}");
+    navigate("/rooms/"+id);
   };
 
   return (

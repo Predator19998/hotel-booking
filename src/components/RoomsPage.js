@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 //import "./RoomsPage.css";
 
-const roomData = [
+var roomData = [
   // Sample room data, replace with actual data from your API
-  {
-    id: 1,
-    name: "Deluxe Room",
-    type: "Single",
-    beds: 1,
-    price: 100
-  },
-  {
-    id: 2,
-    name: "Luxury Suite",
-    type: "Double",
-    beds: 2,
-    price: 200
-  }
   // Add more room data...
 ];
 
 const RoomsPage = () => {
-  const { hotelId } = useParams(); // Get hotelId from URL parameter
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  const { hotelId } = useParams();
+  const [selectedRoom, setSelectedRoom] = useState("");
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/rooms/${hotelId}`);
+        const data = await response.json();
+        setRooms(data);
+        roomData = data;
+      } catch (error) {
+        console.error('Error fetching rooms:', error);
+      }
+    };
+
+    fetchRooms();
+  }, [hotelId]);
 
   const handleRoomSelect = (roomId) => {
     setSelectedRoom(roomId);
@@ -33,7 +35,7 @@ const RoomsPage = () => {
     <div className="rooms-page">
       <h2>Available Rooms</h2>
       <div className="room-list">
-        {roomData.map((room) => (
+        {rooms.map((room) => (
           <div
             key={room.id}
             className={`room-card ${

@@ -12,7 +12,7 @@ const LandingPage = () => {
   return (
     <div
       className="bg-cover bg-center h-screen flex justify-center items-center"
-      style={{ backgroundImage: 'url("URL_OF_YOUR_IMAGE")' }} // Replace with the actual image URL
+      style={{ backgroundImage: 'url("./img/Mointain.jpeg")' }} // Replace with the actual image URL
     >
       <div className="bg-white p-8 rounded-md shadow-md text-center">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">

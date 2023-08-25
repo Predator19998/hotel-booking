@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql2");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,7 +15,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "Mostwanted@2",
-  database: "hotel-booking",
+  database: "hotel_booking",
   port: 3306
 });
 

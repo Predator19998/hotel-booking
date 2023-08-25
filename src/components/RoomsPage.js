@@ -9,7 +9,7 @@ const RoomsPage = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/rooms/${hotelId}`);
+        const response = await fetch(`http://localhost:8080/rooms/${hotelId}`);
         const data = await response.json();
         setRooms(data);
       } catch (error) {

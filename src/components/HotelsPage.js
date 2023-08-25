@@ -19,7 +19,7 @@ const HotelsPage = () => {
     setSearchError('');
 
     try {
-      const response = await fetch('http://localhost:5000/hotels');
+      const response = await fetch('http://localhost:8080/hotels');
       const hotelsData = await response.json();
       setHotels(hotelsData.filter((hotel) => hotel.location.toLowerCase() === location.toLowerCase()));
     } catch (error) {
@@ -77,11 +77,10 @@ const HotelsPage = () => {
           ) : (
             hotels.map((hotel) => (
               <div key={hotel.id} className="bg-white shadow-md p-6 rounded-md">
-                <img src={hotel.image} alt={hotel.name} className="w-full rounded-md mb-4" />
+                <img src={'./img/' + hotel.image} alt={hotel.name} className="w-full h-fit rounded-md mb-4 aspect-[3/4]" />
                 <h3 className="text-lg font-semibold mb-2">{hotel.name}</h3>
                 <p>Rating: {hotel.rating}</p>
                 <p>Location: {hotel.location}</p>
-                <p>Price per night: ${hotel.pricePerNight}</p>
                 <button
                   onClick={() => handleRooms(hotel.id)}
                   className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 mt-4"

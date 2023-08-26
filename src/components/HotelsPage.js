@@ -32,7 +32,9 @@ const HotelsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="bg-scroll bg-cover bg-center h-screen overflow-auto justify-center"
+    style={{ backgroundImage: 'url("./img/beach.jpg")' }} // Replace with the actual image URL
+    >
       <div className="px-4 py-8 max-w-7xl mx-auto">
         <div className="bg-white shadow-md p-6 rounded-md">
           <h2 className="text-2xl font-semibold mb-4">Search Hotels</h2>

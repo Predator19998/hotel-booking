@@ -1,12 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import LoginPage from './LoginPage';
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const [showLogin, setShowLogin] = useState(false);
 
   const handleGetStarted = () => {
-    // Navigate to the Login Page
-    navigate('/login');
+    // Show the login modal
+    setShowLogin(true);
   };
 
   return (
@@ -27,6 +30,8 @@ const LandingPage = () => {
         >
           Get Started
         </button>
+      {/* Show the login modal if it's toggled */}
+      {showLogin && <LoginPage onClose={() => setShowLogin(false)} />}
       </div>
     </div>
   );

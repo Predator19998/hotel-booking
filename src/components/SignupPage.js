@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignupPage = () => {
+const SignupPage = ({ onClose }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,57 +15,57 @@ const SignupPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (response.status === 200) {
-        navigate('/login');
-      } else {
-        const errorData = await response.json();
-        setError(errorData.error);
-      }
+      // Perform API request to create a new user
+      // If successful, navigate to the login page
+      navigate('/login');
     } catch (error) {
       console.error('Signup error:', error);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-md p-6 rounded-md max-w-md w-full">
-        <h2 className="text-2xl font-semibold mb-4">Sign Up</h2>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded mb-3 focus:outline-none focus:ring focus:border-blue-500"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded mb-3 focus:outline-none focus:ring focus:border-blue-500"
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded mb-4 focus:outline-none focus:ring focus:border-blue-500"
-        />
+    <div className="signup-modal fixed inset-0 flex justify-center items-center bg-opacity-50 bg-black">
+      <div className="signup-container bg-white rounded-lg shadow-lg w-64 p-6 relative">
         <button
-          onClick={handleSignUp}
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          className="absolute top-0 right-0 mt-2 mr-2 text-gray-600 hover:text-gray-800"
+          onClick={onClose}
         >
-          Sign Up
+          Close
         </button>
+        <h2 className="text-xl font-semibold mb-4">Sign Up</h2>
+        {error && <p className="error-message mb-4">{error}</p>}
+        <div className="mb-2">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="input"
+          />
+        </div>
+        <div className="mb-2">
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="input"
+          />
+        </div>
+        <div className="mb-2">
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="input"
+          />
+        </div>
+        <div className="mb-4">
+          <button onClick={handleSignUp} className="cta-button">
+            Sign Up
+          </button>
+        </div>
       </div>
     </div>
   );

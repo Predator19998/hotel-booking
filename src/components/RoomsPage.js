@@ -25,8 +25,10 @@ const RoomsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <h2 className="text-2xl font-semibold mb-4">Available Rooms</h2>
+    <div className="bg-scroll bg-cover bg-center h-screen overflow-auto justify-center"
+    style={{ backgroundImage: 'url("/img/beach.jpg")' }} // Replace with the actual image URL
+    >
+      <h2 className="text-2xl font-semibold mb-4 text-white">Available Rooms</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {rooms.map((room) => (
           <div
@@ -51,7 +53,7 @@ const RoomsPage = () => {
         ))}
       </div>
       {selectedRoom && (
-        <div className="mt-8 bg-white shadow-md p-6 rounded-md">
+        <div className="mt-8 w-64 bg-white shadow-md p-6 rounded-md">
           <h3 className="text-lg font-semibold mb-2">Selected Room:</h3>
           <p>Name: {rooms.find((room) => room.id === selectedRoom).name}</p>
           <p>Type: {rooms.find((room) => room.id === selectedRoom).type}</p>
